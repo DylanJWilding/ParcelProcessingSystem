@@ -26,22 +26,17 @@ public class Parcel {
         return status;
     }
 
-    // Getter for dimensions
-    public String getDimensions() {
-        return dimensions;
-    }
-
     // Getter for weight
     public int getWeight() {
         return weight;
     }
 
-    // Setter for weight (NEWLY ADDED)
+    // Setter for weight
     public void setWeight(int weight) {
         this.weight = weight;
     }
 
-    // Getter for days in depot
+    // Getter for daysInDepot
     public int getDaysInDepot() {
         return daysInDepot;
     }
