@@ -1,20 +1,23 @@
 package controllers;
 
 import models.Parcel;
+
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.ArrayList;
 
 public class ParcelMap {
     private Map<String, Parcel> parcelMap;
 
     public ParcelMap() {
+        // Initialize the parcelMap as a HashMap
         this.parcelMap = new HashMap<>();
     }
 
     public void addParcel(Parcel parcel) {
         parcelMap.put(parcel.getId(), parcel);
-        Log.getInstance().addEntry("Parcel added to map: " + parcel);
     }
 
     public Parcel findParcelById(String id) {
@@ -22,13 +25,10 @@ public class ParcelMap {
     }
 
     public void removeParcel(String id) {
-        Parcel removedParcel = parcelMap.remove(id);
-        if (removedParcel != null) {
-            Log.getInstance().addEntry("Parcel removed from map: " + removedParcel);
-        }
+        parcelMap.remove(id);
     }
 
-    public Collection<Parcel> getAllParcels() {
-        return parcelMap.values();
+    public List<Parcel> getAllParcels() {
+        return new ArrayList<>(parcelMap.values());
     }
 }
