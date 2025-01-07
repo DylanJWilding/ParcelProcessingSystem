@@ -2,42 +2,48 @@ package controllers;
 
 import models.Customer;
 import models.Parcel;
+import views.ProcessingAreaView;
 
 public class Worker {
-    private final QueueOfCustomers customerQueue;
-    private final ParcelMap parcelMap;
+    private QueueOfCustomers customerQueue;
+    private ParcelMap parcelMap;
+    private ProcessingAreaView processingAreaView;
 
-    public Worker(QueueOfCustomers customerQueue, ParcelMap parcelMap) {
+    public Worker(QueueOfCustomers customerQueue, ParcelMap parcelMap, ProcessingAreaView processingAreaView) {
         this.customerQueue = customerQueue;
         this.parcelMap = parcelMap;
+        this.processingAreaView = processingAreaView;
     }
 
     public void processNextCustomer() {
         // Get the next customer from the queue
         Customer customer = customerQueue.getNextInQueue();
         if (customer == null) {
-            Log.getInstance().addEntry("No customers to process.");
-            System.out.println("No customers to process.");
+            processingAreaView.updateProcessingArea("No customers in the queue.");
             return;
         }
 
         // Find the parcel associated with the customer
         Parcel parcel = parcelMap.findParcelById(customer.getParcelId());
         if (parcel == null) {
-            Log.getInstance().addEntry("Parcel not found for customer: " + customer.getName());
-            System.out.println("Parcel not found for customer: " + customer.getName());
+            processingAreaView.updateProcessingArea("Parcel not found for customer: " + customer.getName());
             return;
         }
 
         // Calculate the collection fee
         double fee = parcel.calculateCollectionFee();
+
+        // Log processing details
         Log.getInstance().addEntry("Processing Customer: " + customer);
         Log.getInstance().addEntry("Parcel Details: " + parcel);
         Log.getInstance().addEntry("Collection Fee: $" + fee);
 
-        System.out.println("Processing Customer: " + customer);
-        System.out.println("Parcel Details: " + parcel);
-        System.out.println("Collection Fee: $" + fee);
+        // Update the processing area view
+        processingAreaView.updateProcessingArea(
+                "Processing Customer: " + customer.getName() +
+                        "\nParcel ID: " + parcel.getId() +
+                        "\nCollection Fee: $" + fee
+        );
 
         // Update parcel status
         parcel.updateStatus("Collected");
