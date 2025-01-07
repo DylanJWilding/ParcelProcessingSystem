@@ -46,11 +46,10 @@ public class Worker {
         );
 
         // Update parcel status
-        parcel.updateStatus("Collected");
-        Log.getInstance().addEntry("Parcel status updated to: Collected");
+        parcel.updateStatus("Processed");
+        Log.getInstance().addEntry("Parcel status updated to: Processed");
 
         // Remove the customer from the queue
-        customerQueue.removeCustomer();
         Log.getInstance().addEntry("Customer removed from queue: " + customer);
     }
 }
