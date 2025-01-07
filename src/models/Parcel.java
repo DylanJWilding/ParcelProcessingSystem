@@ -1,27 +1,27 @@
 package models;
 
 public class Parcel {
-    private String parcelId; // Unique identifier
-    private String dimensions; // e.g., "4x2x3"
-    private int weight; // Weight in kilograms
-    private int daysInDepot; // Days parcel has been in the depot
-    private String status; // "Waiting" or "Collected"
+    private String parcelId;
+    private String dimensions; // Example format: "4x2x3"
+    private int weight; // in kilograms
+    private int daysInDepot; // number of days the parcel has been in the depot
+    private String status; // Status of the parcel: "Waiting" or "Collected"
 
     // Constructor
-    public Parcel(String parcelId, String dimensions, int weight, int daysInDepot, String status) {
+    public Parcel(String parcelId, String dimensions, int weight, int daysInDepot) {
         this.parcelId = parcelId;
         this.dimensions = dimensions;
         this.weight = weight;
         this.daysInDepot = daysInDepot;
-        this.status = status;
+        this.status = "Waiting"; // Default status
     }
 
-    // Getter and Setter methods
-    public String getParcelId() {
+    // Getters and Setters
+    public String getId() {
         return parcelId;
     }
 
-    public void setParcelId(String parcelId) {
+    public void setId(String parcelId) {
         this.parcelId = parcelId;
     }
 
@@ -57,24 +57,27 @@ public class Parcel {
         this.status = status;
     }
 
-    // Method to calculate collection fee
-    public float calculateCollectionFee() {
-        float baseFee = 10.0f; // Base fee
-        float weightFee = 2.0f * weight; // Fee per kg
-        float dimensionFee = 1.5f * dimensions.split("x").length; // Fee based on dimensions
-        float dayMultiplier = daysInDepot > 5 ? 1.2f : 1.0f; // Extra fee for parcels over 5 days
-        return (baseFee + weightFee + dimensionFee) * dayMultiplier;
+    // Calculate collection fee based on parcel properties
+    public double calculateCollectionFee() {
+        double baseFee = 10.0; // Base fee
+        double sizeFactor = 1.0; // Factor based on dimensions
+        double weightFactor = 2.0; // Factor per kg
+        double daysFactor = 0.5; // Additional fee per day in depot
+
+        // Parse dimensions to calculate volume (assume format is "LxWxH")
+        String[] dims = dimensions.split("x");
+        int length = Integer.parseInt(dims[0]);
+        int width = Integer.parseInt(dims[1]);
+        int height = Integer.parseInt(dims[2]);
+
+        sizeFactor = length * width * height * 0.1;
+
+        return baseFee + (sizeFactor * weight) + (daysInDepot * daysFactor);
     }
 
-    // Method to update parcel status
-    public void updateStatus(String newStatus) {
-        this.status = newStatus;
-    }
-
-    // toString method for displaying parcel details
     @Override
     public String toString() {
-        return "Parcel [ID: " + parcelId + ", Dimensions: " + dimensions + ", Weight: " + weight +
-                "kg, Days in Depot: " + daysInDepot + ", Status: " + status + "]";
+        return String.format("Parcel [ID: %s, Dimensions: %s, Weight: %dkg, Days in Depot: %d, Status: %s]",
+                parcelId, dimensions, weight, daysInDepot, status);
     }
 }

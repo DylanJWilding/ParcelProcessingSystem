@@ -1,37 +1,33 @@
 package views;
 
+import controllers.ParcelMap;
 import models.Parcel;
-import models.Customer;
 
 public class Main {
     public static void main(String[] args) {
-        // Test 1: Create and display a Parcel
-        Parcel parcel1 = new Parcel("C101", "4x2x3", 10, 7, "Waiting");
+        // Test Parcel Class
+        Parcel parcel = new Parcel("C101", "4x2x3", 10, 7);
         System.out.println("Parcel Details:");
-        System.out.println(parcel1);
+        System.out.println(parcel);
 
-        // Test 2: Calculate Collection Fee
-        float fee = parcel1.calculateCollectionFee();
-        System.out.println("Collection Fee for Parcel " + parcel1.getParcelId() + ": $" + fee);
-
-        // Test 3: Update Parcel Status
-        parcel1.updateStatus("Collected");
+        System.out.println("Collection Fee for Parcel " + parcel.getId() + ": $" + parcel.calculateCollectionFee());
+        parcel.setStatus("Collected");
         System.out.println("Updated Parcel Status:");
-        System.out.println(parcel1);
+        System.out.println(parcel);
 
-        // Test 4: Create and display a Customer
-        Customer customer1 = new Customer(1, "John Brown", "C101");
-        System.out.println("\nCustomer Details:");
-        System.out.println(customer1);
+        // Test ParcelMap Class
+        ParcelMap parcelMap = new ParcelMap();
+        parcelMap.addParcel(parcel);
+        parcelMap.addParcel(new Parcel("C102", "5x3x2", 15, 4));
+        System.out.println("\nAll Parcels in ParcelMap:");
+        parcelMap.displayParcels();
 
-        // Test 5: Check Customer Queue Position
-        int queuePosition = customer1.checkQueuePosition();
-        System.out.println("Customer Queue Position: " + queuePosition);
+        System.out.println("\nFind Parcel by ID:");
+        Parcel foundParcel = parcelMap.findParcelById("C101");
+        System.out.println(foundParcel != null ? foundParcel : "Parcel not found");
 
-        // Test 6: Update Customer Details
-        customer1.setName("Jane Doe");
-        customer1.setParcelId("C200");
-        System.out.println("\nUpdated Customer Details:");
-        System.out.println(customer1);
+        System.out.println("\nRemove Parcel by ID (C101):");
+        parcelMap.removeParcel("C101");
+        parcelMap.displayParcels();
     }
 }
