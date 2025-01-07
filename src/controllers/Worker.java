@@ -16,7 +16,7 @@ public class Worker {
     // Process the next customer in the queue
     public void processNextCustomer() {
         // Get the next customer
-        Customer customer = customerQueue.getNextInQueue();
+        Customer customer = customerQueue.getNextCustomer(); // Use getNextCustomer()
         if (customer == null) {
             System.out.println("No customers to process.");
             return;
@@ -35,11 +35,12 @@ public class Worker {
         System.out.println("Parcel Details: " + parcel);
         System.out.println("Collection Fee: $" + fee);
 
-        // Update parcel status to "Collected"
+        // Update the parcel status
         parcel.setStatus("Collected");
         System.out.println("Parcel status updated to: " + parcel.getStatus());
 
-        // Remove customer from the queue
+        // Remove the customer from the queue
         customerQueue.removeFromQueue();
+        System.out.println("Customer removed from queue: " + customer);
     }
 }

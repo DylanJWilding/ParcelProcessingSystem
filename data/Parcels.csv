@@ -1,0 +1,6 @@
+ParcelID,Dimensions,Weight,DaysInDepot,Status
+C101,4x2x3,10,7,Waiting
+C102,5x3x2,15,4,Waiting
+C103,3x3x3,20,10,Waiting
+C104,6x2x2,5,2,Waiting
+C105,4x4x4,25,12,Waiting

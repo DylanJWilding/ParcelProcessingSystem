@@ -2,53 +2,48 @@ package controllers;
 
 import models.Customer;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Queue;
 
 public class QueueOfCustomers {
-    private Queue<Customer> customerQueue;
+    private Queue<Customer> queue;
 
     // Constructor
     public QueueOfCustomers() {
-        customerQueue = new LinkedList<>();
+        queue = new LinkedList<>();
     }
 
     // Add a customer to the queue
     public void addToQueue(Customer customer) {
-        customerQueue.add(customer);
-        System.out.println("Customer added to queue: " + customer);
+        queue.add(customer);
     }
 
-    // Remove a customer from the queue
+    // Remove a customer from the queue and return the removed customer
     public Customer removeFromQueue() {
-        Customer removedCustomer = customerQueue.poll();
-        if (removedCustomer != null) {
-            System.out.println("Customer removed from queue: " + removedCustomer);
-        } else {
-            System.out.println("No customers in queue to remove.");
-        }
-        return removedCustomer;
+        return queue.poll();
     }
 
-    // Get the next customer in the queue
-    public Customer getNextInQueue() {
-        Customer nextCustomer = customerQueue.peek();
-        if (nextCustomer != null) {
-            System.out.println("Next customer in queue: " + nextCustomer);
-        } else {
-            System.out.println("No customers in queue.");
-        }
-        return nextCustomer;
+    // Get the next customer without removing
+    public Customer getNextCustomer() {
+        return queue.peek(); // Retrieves the next customer without removing
+    }
+
+    // Check if the queue is empty
+    public boolean isEmpty() {
+        return queue.isEmpty();
+    }
+
+    // Get all customers as a list
+    public List<Customer> getAllCustomers() {
+        return new ArrayList<>(queue); // Return a copy of the queue as a list
     }
 
     // Display all customers in the queue
     public void displayQueue() {
-        if (customerQueue.isEmpty()) {
-            System.out.println("No customers in queue.");
-        } else {
-            System.out.println("Customers in queue:");
-            for (Customer customer : customerQueue) {
-                System.out.println(customer);
-            }
+        System.out.println("Customers in the queue:");
+        for (Customer customer : queue) {
+            System.out.println(customer);
         }
     }
 }

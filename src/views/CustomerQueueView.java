@@ -1,21 +1,27 @@
 package views;
 
+import controllers.QueueOfCustomers;
+import controllers.Worker;
+import models.Customer;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class CustomerQueueView extends JPanel {
+    private DefaultListModel<String> customerQueueModel;
 
-    public CustomerQueueView() {
+    public CustomerQueueView(QueueOfCustomers queueOfCustomers, Worker worker) {
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createTitledBorder("Customer Queue"));
 
         // Create a list to display the customer queue
-        DefaultListModel<String> customerQueueModel = new DefaultListModel<>();
+        customerQueueModel = new DefaultListModel<>();
         JList<String> customerQueueList = new JList<>(customerQueueModel);
 
-        // Add some sample data
-        customerQueueModel.addElement("Customer 1: John Brown");
-        customerQueueModel.addElement("Customer 2: Jane Smith");
+        // Populate the list with customers from QueueOfCustomers
+        for (Customer customer : queueOfCustomers.getAllCustomers()) {
+            customerQueueModel.addElement(customer.toString());
+        }
 
         // Add the list to a scroll pane
         JScrollPane scrollPane = new JScrollPane(customerQueueList);
@@ -25,14 +31,24 @@ public class CustomerQueueView extends JPanel {
         JButton processButton = new JButton("Process Next Customer");
         add(processButton, BorderLayout.SOUTH);
 
-        // Action listener for the process button (to be implemented later)
+        // Action listener for the process button
         processButton.addActionListener(e -> {
-            if (!customerQueueModel.isEmpty()) {
-                customerQueueModel.remove(0); // Remove the first customer
-                JOptionPane.showMessageDialog(this, "Processed the next customer!");
+            if (!queueOfCustomers.isEmpty()) {
+                Customer nextCustomer = queueOfCustomers.getNextCustomer();
+                worker.processNextCustomer();
+                JOptionPane.showMessageDialog(this, "Processed: " + nextCustomer);
+                refresh(queueOfCustomers); // Refresh the queue view
             } else {
                 JOptionPane.showMessageDialog(this, "No customers in the queue!");
             }
         });
+    }
+
+    // Method to refresh the customer queue list
+    public void refresh(QueueOfCustomers queueOfCustomers) {
+        customerQueueModel.clear();
+        for (Customer customer : queueOfCustomers.getAllCustomers()) {
+            customerQueueModel.addElement(customer.toString());
+        }
     }
 }

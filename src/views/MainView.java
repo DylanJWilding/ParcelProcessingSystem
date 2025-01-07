@@ -1,11 +1,14 @@
 package views;
 
+import controllers.ParcelMap;
+import controllers.QueueOfCustomers;
+import controllers.Worker;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class MainView extends JFrame {
-
-    public MainView() {
+    public MainView(ParcelMap parcelMap, QueueOfCustomers queueOfCustomers, Worker worker) {
         // Set up the main window
         setTitle("Parcel Processing System");
         setSize(800, 600);
@@ -13,8 +16,8 @@ public class MainView extends JFrame {
         setLayout(new BorderLayout());
 
         // Add panels
-        JPanel parcelPanel = new ParcelView();
-        JPanel customerQueuePanel = new CustomerQueueView();
+        JPanel parcelPanel = new ParcelView(parcelMap);
+        JPanel customerQueuePanel = new CustomerQueueView(queueOfCustomers, worker);
 
         // Add the panels to the main window
         add(parcelPanel, BorderLayout.WEST); // Parcels on the left
