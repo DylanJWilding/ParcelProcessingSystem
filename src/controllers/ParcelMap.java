@@ -9,34 +9,26 @@ public class ParcelMap {
     private Map<String, Parcel> parcelMap;
 
     public ParcelMap() {
-        parcelMap = new HashMap<>();
+        this.parcelMap = new HashMap<>();
     }
 
-    // Add a parcel to the map
     public void addParcel(Parcel parcel) {
-        parcelMap.put(parcel.getParcelId(), parcel); // Use getParcelId()
+        parcelMap.put(parcel.getId(), parcel);
+        Log.getInstance().addEntry("Parcel added to map: " + parcel);
     }
 
-    // Find a parcel by its ID
     public Parcel findParcelById(String id) {
         return parcelMap.get(id);
     }
 
-    // Remove a parcel by its ID
     public void removeParcel(String id) {
-        parcelMap.remove(id);
-    }
-
-    // Get all parcels in the map
-    public Collection<Parcel> getAllParcels() {
-        return parcelMap.values(); // Return all the parcels in the map
-    }
-
-    // Display all parcels
-    public void displayParcels() {
-        System.out.println("Parcels in the system:");
-        for (Parcel parcel : parcelMap.values()) {
-            System.out.println(parcel);
+        Parcel removedParcel = parcelMap.remove(id);
+        if (removedParcel != null) {
+            Log.getInstance().addEntry("Parcel removed from map: " + removedParcel);
         }
+    }
+
+    public Collection<Parcel> getAllParcels() {
+        return parcelMap.values();
     }
 }

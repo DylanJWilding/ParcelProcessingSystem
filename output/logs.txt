@@ -1,0 +1,16 @@
+Customer added to queue: Customer [Sequence Number: 1, Name: John Brown, Parcel ID: C101]
+Customer added to queue: Customer [Sequence Number: 2, Name: Jane Smith, Parcel ID: C102]
+Parcel added to map: Parcel [ID: C101, Dimensions: 4x2x3, Weight: 10kg, Days in Depot: 7, Status: Waiting]
+Parcel added to map: Parcel [ID: C102, Dimensions: 5x3x2, Weight: 15kg, Days in Depot: 4, Status: Waiting]
+Processing Customer: Customer [Sequence Number: 1, Name: John Brown, Parcel ID: C101]
+Parcel Details: Parcel [ID: C101, Dimensions: 4x2x3, Weight: 10kg, Days in Depot: 7, Status: Waiting]
+Collection Fee: $60.0
+Parcel status updated to: Collected
+Customer removed from queue: Customer [Sequence Number: 1, Name: John Brown, Parcel ID: C101]
+Customer removed from queue: Customer [Sequence Number: 1, Name: John Brown, Parcel ID: C101]
+Processing Customer: Customer [Sequence Number: 2, Name: Jane Smith, Parcel ID: C102]
+Parcel Details: Parcel [ID: C102, Dimensions: 5x3x2, Weight: 15kg, Days in Depot: 4, Status: Waiting]
+Collection Fee: $57.5
+Parcel status updated to: Collected
+Customer removed from queue: Customer [Sequence Number: 2, Name: Jane Smith, Parcel ID: C102]
+Customer removed from queue: Customer [Sequence Number: 2, Name: Jane Smith, Parcel ID: C102]
