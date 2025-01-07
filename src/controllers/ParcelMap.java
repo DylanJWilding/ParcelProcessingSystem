@@ -1,21 +1,20 @@
 package controllers;
 
 import models.Parcel;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Collection;
 
 public class ParcelMap {
     private Map<String, Parcel> parcelMap;
 
-    // Constructor
     public ParcelMap() {
         parcelMap = new HashMap<>();
     }
 
     // Add a parcel to the map
     public void addParcel(Parcel parcel) {
-        parcelMap.put(parcel.getId(), parcel);
+        parcelMap.put(parcel.getParcelId(), parcel); // Use getParcelId()
     }
 
     // Find a parcel by its ID

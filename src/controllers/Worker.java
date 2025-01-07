@@ -7,16 +7,14 @@ public class Worker {
     private QueueOfCustomers customerQueue;
     private ParcelMap parcelMap;
 
-    // Constructor
-    public Worker(QueueOfCustomers customerQueue, ParcelMap parcelMap) {
-        this.customerQueue = customerQueue;
+    public Worker(QueueOfCustomers queueOfCustomers, ParcelMap parcelMap) {
+        this.customerQueue = queueOfCustomers;
         this.parcelMap = parcelMap;
     }
 
-    // Process the next customer in the queue
     public void processNextCustomer() {
         // Get the next customer
-        Customer customer = customerQueue.getNextCustomer(); // Use getNextCustomer()
+        Customer customer = customerQueue.getNextInQueue();
         if (customer == null) {
             System.out.println("No customers to process.");
             return;
@@ -35,11 +33,11 @@ public class Worker {
         System.out.println("Parcel Details: " + parcel);
         System.out.println("Collection Fee: $" + fee);
 
-        // Update the parcel status
-        parcel.setStatus("Collected");
+        // Update parcel status to "Collected"
+        parcel.updateStatus("Collected");
         System.out.println("Parcel status updated to: " + parcel.getStatus());
 
-        // Remove the customer from the queue
+        // Remove customer from the queue
         customerQueue.removeFromQueue();
         System.out.println("Customer removed from queue: " + customer);
     }

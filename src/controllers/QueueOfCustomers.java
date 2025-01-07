@@ -2,48 +2,38 @@ package controllers;
 
 import models.Customer;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.ArrayList;
 import java.util.Queue;
 
 public class QueueOfCustomers {
-    private Queue<Customer> queue;
+    private Queue<Customer> customerQueue;
 
-    // Constructor
     public QueueOfCustomers() {
-        queue = new LinkedList<>();
+        this.customerQueue = new LinkedList<>();
     }
 
-    // Add a customer to the queue
     public void addToQueue(Customer customer) {
-        queue.add(customer);
+        customerQueue.offer(customer); // Adds customer to the queue
+        System.out.println("Customer added to queue: " + customer);
     }
 
-    // Remove a customer from the queue and return the removed customer
-    public Customer removeFromQueue() {
-        return queue.poll();
-    }
-
-    // Get the next customer without removing
-    public Customer getNextCustomer() {
-        return queue.peek(); // Retrieves the next customer without removing
-    }
-
-    // Check if the queue is empty
-    public boolean isEmpty() {
-        return queue.isEmpty();
-    }
-
-    // Get all customers as a list
-    public List<Customer> getAllCustomers() {
-        return new ArrayList<>(queue); // Return a copy of the queue as a list
-    }
-
-    // Display all customers in the queue
-    public void displayQueue() {
-        System.out.println("Customers in the queue:");
-        for (Customer customer : queue) {
-            System.out.println(customer);
+    public Customer getNextInQueue() {
+        if (customerQueue.isEmpty()) {
+            return null;
         }
+        return customerQueue.poll(); // Retrieves and removes the head of the queue
+    }
+
+    public void removeFromQueue() {
+        if (!customerQueue.isEmpty()) {
+            customerQueue.poll();
+        }
+    }
+
+    public Queue<Customer> getAllCustomers() {
+        return new LinkedList<>(customerQueue); // Return a copy of the queue
+    }
+
+    public boolean isEmpty() {
+        return customerQueue.isEmpty();
     }
 }
