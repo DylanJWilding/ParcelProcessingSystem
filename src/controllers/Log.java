@@ -21,12 +21,13 @@ public class Log {
 
     public void addEntry(String entry) {
         logEntries.append(entry).append("\n");
+        // Automatically write to file after each log entry
+        writeToFile("output/logs.txt");
     }
 
     public void writeToFile(String filePath) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             writer.write(logEntries.toString());
-            System.out.println("Logs saved to " + filePath);
         } catch (IOException e) {
             System.err.println("Error writing logs to file: " + e.getMessage());
         }
