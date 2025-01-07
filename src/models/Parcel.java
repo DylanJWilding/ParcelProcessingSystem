@@ -36,6 +36,11 @@ public class Parcel {
         return weight;
     }
 
+    // Setter for weight (NEWLY ADDED)
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
     // Getter for days in depot
     public int getDaysInDepot() {
         return daysInDepot;

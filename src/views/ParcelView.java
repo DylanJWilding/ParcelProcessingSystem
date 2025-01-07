@@ -1,35 +1,23 @@
 package views;
 
 import controllers.ParcelMap;
-import models.Parcel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class ParcelView extends JPanel {
     private DefaultListModel<String> parcelListModel;
-    private JTextField searchField;
+    private JList<String> parcelList;
 
     public ParcelView(ParcelMap parcelMap) {
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createTitledBorder("Parcels"));
 
-        // Create search field
-        searchField = new JTextField();
-        searchField.setToolTipText("Search parcels by ID or status...");
-        searchField.addActionListener(e -> filterParcels(parcelMap)); // Trigger filter on Enter key
-
-        // Create parcel list
         parcelListModel = new DefaultListModel<>();
-        JList<String> parcelList = new JList<>(parcelListModel);
-
-        // Add components
-        add(searchField, BorderLayout.NORTH);
+        parcelList = new JList<>(parcelListModel);
         add(new JScrollPane(parcelList), BorderLayout.CENTER);
 
-        // Populate initial data
+        // Populate the list with parcels from ParcelMap
         refresh(parcelMap);
     }
 
@@ -40,13 +28,7 @@ public class ParcelView extends JPanel {
         );
     }
 
-    private void filterParcels(ParcelMap parcelMap) {
-        String searchText = searchField.getText().toLowerCase();
-        parcelListModel.clear();
-        parcelMap.getAllParcels().stream()
-                .filter(parcel -> parcel.getId().toLowerCase().contains(searchText) ||
-                        parcel.getStatus().toLowerCase().contains(searchText))
-                .collect(Collectors.toList())
-                .forEach(parcel -> parcelListModel.addElement(parcel.toString()));
+    public String getSelectedParcel() {
+        return parcelList.getSelectedValue();
     }
 }
